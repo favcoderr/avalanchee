@@ -1,20 +1,26 @@
-# GuessTheNumber Solidity Contract
+# My Token Contract
 
-## Overview
-GuessTheNumber is a simple Solidity smart contract where players can guess a secret number within a specified range to win a prize. The contract holds a secret number generated upon deployment, and players can guess the number by paying an entry fee. If the guessed number matches the secret number, the player wins the prize pool.
+- **Name:** LekanToken
+- **Symbol:** LTK
+
+## Contract Overview
+
+This is an ERC-20 called `LekanToken` with symbol `LTK`. The Contract inherits OpenZeppelin ERC20 standard, with extra implementation to mint, burn and transfer.
 
 ## Contract Details
-- **Owner:** The owner of the contract can set the secret number manually and view the current secret number.
-- **Secret Number Generation:** The secret number is generated upon contract deployment using the block timestamp modulo operation to ensure randomness.
-- **Entry Fee:** Players must pay an entry fee to participate in the game. The default entry fee is set to 2 ether.
-- **Prize Pool:** The prize pool accumulates entry fees from players. When a player guesses the correct number, they win the prize pool along with their entry fee.
-- **Reset Game:** If a player guesses the correct number, the game resets with a new secret number and an empty prize pool.
 
-## Functions
-1. **guess(uint256 _guessedNumber) external payable:** Allows players to guess the secret number by providing their guessed number as input. Players must also send the entry fee along with their guess. If the guess is correct, the player wins the prize pool; otherwise, their entry fee is added to the prize pool.
-2. **resetGame() private:** Resets the game by generating a new secret number and resetting the prize pool. This function is called internally after a player guesses the correct number.
-3. **setNumber(uint256 _value) onlyOwner external:** Allows the contract owner to manually set a new secret number. This function demonstrates the use of the `revert()` function to handle invalid inputs.
-4. **viewSecret() onlyOwner external view returns (uint256):** Allows the contract owner to view the current secret number without modifying it.
+### Constructor
 
-## License
-This contract is licensed under the MIT License.
+During Constructor time, The ERC-20 token name and symbol is set. Also the deployer become the owner of the contract.
+
+### mint
+
+The mint function allows new tokens to be generated and sent to a specified address. This function can only be called by the contract owner.
+
+### transfer
+
+Allows holders of the token to transfer an amount of the token to another address provided that their balance is greater than that amount.
+
+### burn
+
+This function allows the holders to burn a specified amount, hence erasing it from the total supply. Holders must have sufficient amount to burn.
